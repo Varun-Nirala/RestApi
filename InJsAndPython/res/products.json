@@ -1,0 +1,38 @@
+[
+    {
+        "productId": 1,
+        "productName": "Wireless Mouse",
+        "category": "Electronics",
+        "price": 1200.00,
+        "stock": 50,
+        "description": "A high-quality wireless mouse with ergonomic design.",
+        "rating": 4.5
+    },
+    {
+        "productId": 2,
+        "productName": "Bluetooth Headphones",
+        "category": "Electronics",
+        "price": 2500.00,
+        "stock": 30,
+        "description": "Noise-cancelling Bluetooth headphones with long battery life.",
+        "rating": 4.7
+    },
+    {
+        "productId": 3,
+        "productName": "Smartphone Stand",
+        "category": "Accessories",
+        "price": 800.00,
+        "stock": 100,
+        "description": "Adjustable smartphone stand for hands-free use.",
+        "rating": 4.2
+    },
+    {
+        "productId": 4,
+        "productName": "Laptop Backpack",
+        "category": "Bags",
+        "price": 1800.00,
+        "stock": 20,
+        "description": "Durable and spacious backpack for laptops and accessories.",
+        "rating": 4.6
+    }
+]
