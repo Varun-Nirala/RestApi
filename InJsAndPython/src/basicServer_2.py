@@ -70,7 +70,6 @@ class BasicServer_2(BaseHTTPRequestHandler):
             self.wfile.write(b'404 - Not Found')
 
 
-
     # Automatoically resolved when POST request is sumbitted.
     def do_POST(self):
         content_len = int(self.headers['Content-Length'])
@@ -87,7 +86,7 @@ class BasicServer_2(BaseHTTPRequestHandler):
         self.wfile.write(bytes('{"time": "' + date + '"}', "utf-8"))
 
 
-
+    # Return content of Json file as string.
     def __get_json(self, filename) -> str:
         logger.info("[%s]::Getting content of JSON File = '%s' @ '%s'", self.serverType, filename, self.jsonFileLocation)
         try:
@@ -98,7 +97,7 @@ class BasicServer_2(BaseHTTPRequestHandler):
             return self.__get_HtmlErrorAsHeader1(constants.HTTP_NOT_FOUND)
 
 
-
+    # Return content of Html file as string.
     def __get_html(self, filename) -> str:
         logger.info("[%s]::Getting content of HTML File = '%s' @ '%s'", self.serverType, filename, self.htmlFilesLocation)
         try:
@@ -109,6 +108,7 @@ class BasicServer_2(BaseHTTPRequestHandler):
             return self.__get_HtmlErrorAsHeader1(constants.HTTP_NOT_FOUND)
 
 
+    # Return content of Javascript file as string.
     def __get_js(self, filename) -> str:
         logger.info("[%s]::Getting content of Js File = '%s' @ '%s'", self.serverType, filename, self.jsFilesLocation)
         try:
@@ -119,6 +119,7 @@ class BasicServer_2(BaseHTTPRequestHandler):
             return ""
 
 
+    # Return Html errors as string.
     def __get_HtmlErrorAsHeader1(self, errorCode) -> str:
         if errorCode == constants.HTTP_NOT_FOUND:
             return "<h1>404 Not Found</h1>"
