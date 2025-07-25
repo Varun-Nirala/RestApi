@@ -43,7 +43,14 @@ class BasicServer_2(BaseHTTPRequestHandler):
             self.send_response(constants.HTTP_SUCCESS)
             self.send_header("Content-type", "text/html")
             self.end_headers()
-            self.wfile.write(self.__get_json(self.path.removeprefix('/get/') + '.json' ).encode())
+
+            # Our path is like: /get/user/<user_id>
+            # we need to create correct filepath from it and extract the id.
+            tokens = self.path.split('/')
+
+            assert len(tokens) == 4, 'Tokens count is not 4 as expected!'
+
+            self.wfile.write(self.__get_jsonEntity(filename=tokens[2] + 's.json', targetId=tokens[3]).encode())
 
         elif self.path == '/about':
             self.send_response(constants.HTTP_SUCCESS)
@@ -86,9 +93,9 @@ class BasicServer_2(BaseHTTPRequestHandler):
         self.wfile.write(bytes('{"time": "' + date + '"}', "utf-8"))
 
 
-    # Return content of Json file as string.
+    # Return full content of Json file as string.
     def __get_json(self, filename) -> str:
-        logger.info("[%s]::Getting content of JSON File = '%s' @ '%s'", self.serverType, filename, self.jsonFileLocation)
+        logger.info("[%s]::Getting full content of JSON File = '%s' @ '%s'", self.serverType, filename, self.jsonFileLocation)
         try:
             with open(os.path.join(self.jsonFileLocation, filename), 'r') as file:
                 return json.dumps(json.load(file))
@@ -97,6 +104,28 @@ class BasicServer_2(BaseHTTPRequestHandler):
             return self.__get_HtmlErrorAsHeader1(constants.HTTP_NOT_FOUND)
 
 
+    # Return single entity from Json file as string
+    def __get_jsonEntity(self, filename, targetId) -> str:
+        logger.info("[%s]::Getting single target entity id = '%s' of JSON File = '%s' @ '%s'", self.serverType, targetId, filename, self.jsonFileLocation)
+        try:
+            jsonContent = json.loads(self.__get_json(filename=filename))    # As __get__json returns string and not Json object.
+            result = None
+            for dataEntity in jsonContent:
+                if 'id' in dataEntity and str(dataEntity['id']) == targetId:
+                    result = dataEntity
+                    break
+
+            if result == None:
+                raise KeyError("[%s]::File = '%s' @ '%s' key = '%s' not found.", self.serverType, filename, self.jsFilesLocation, targetId)
+            return json.dumps(result)
+
+        except FileNotFoundError:
+            logger.info("[%s]::File = '%s' not found @ '%s'", self.serverType, filename, self.htmlFilesLocation)
+            return self.__get_HtmlErrorAsHeader1(constants.HTTP_NOT_FOUND)
+        except KeyError as e:
+            logger.info("Error: {e}")
+            return self.__get_HtmlErrorAsHeader1(constants.HTTP_NOT_FOUND)
+
     # Return content of Html file as string.
     def __get_html(self, filename) -> str:
         logger.info("[%s]::Getting content of HTML File = '%s' @ '%s'", self.serverType, filename, self.htmlFilesLocation)
@@ -104,7 +133,7 @@ class BasicServer_2(BaseHTTPRequestHandler):
             with open(os.path.join(self.htmlFilesLocation, filename), 'r') as file:
                 return file.read()
         except FileNotFoundError:
-            logger.info("[%s]::File = '%s' not found @ '%s'", self.serverType, filename, self.htmlFilesLocation)
+            logger.info("[%s]::File = '%s' not found @ '%s'.", self.serverType, filename, self.htmlFilesLocation)
             return self.__get_HtmlErrorAsHeader1(constants.HTTP_NOT_FOUND)
 
 

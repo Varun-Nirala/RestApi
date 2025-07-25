@@ -11,4 +11,4 @@ export const BASE_URL = `${SERVER_IP}:${SERVER_PORT}` ;  // => 127.0.0.1:8001 or
 //      /products.json
 //      /users.json
 export const GET_ALL_OPTIONS = [ "users", "products", "orders" ];
-export const GET_ONE_OPTION = [ "users", "products", "orders" ];
+export const GET_ONE_OPTION = [ "user/<USER_ID>", "product/<PRODUCT_ID>", "order/<ORDER_ID>" ];

@@ -123,15 +123,14 @@ async function handleSubmitRequest_GetALL(inputVal) {
  */
 async function handleSubmitRequest_Get(inputVal) {
     console.log(`handleSubmitRequest_Get() Called with ${inputVal}`);
-
     let resultText = "";
 
     const tokens = inputVal.split('/');
-    console.assert(tokens.length === 3, 'Tokens is not 3 as expected!');
+    console.assert(tokens.length === 2, 'Tokens count is not 2 as expected!');
 
     for (let index = 0; index < Constants.GET_ONE_OPTION.length; index++) {
-        if (tokens[1] == Constants.GET_ONE_OPTION[index]) {
-            resultText = await sendGetRequestToServerToGet(`/get/${Constants.GET_ONE_OPTION[index]}/tokens[2]`).toString();
+        if (tokens[0] == Constants.GET_ONE_OPTION[index].split('/')[0]) {
+            resultText = await sendGetRequestToServerToGet(`/get/${inputVal}`).toString();
             break;
         }
     }
@@ -207,8 +206,6 @@ function onRadioButtonSelectionChange() {
 
     console.log(`restAction : ${restAction}`);
 
-    const getOptions = Constants.GET_ALL_OPTIONS.map(element => element.slice(0, -1));
-
     let validOptionsText = "";
     switch (restAction) {
         case "GET_ALL":
@@ -218,7 +215,7 @@ function onRadioButtonSelectionChange() {
 
         case "GET":
             additionalInput.style.display = 'block';
-            validOptionsText = `Can choose from: ${getOptions.toString()}`;
+            validOptionsText = `Can choose from: ${Constants.GET_ONE_OPTION.toString()}`;
             break;
 
         case "POST":
