@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Home Page</title>
+        <style>
+            body {
+                font-family: Arial, Helvetica, sans-serif;
+                margin: 20px;
+            }
+            .input-container {
+                display: flex;
+                align-items: center;
+            }
+            input[type="text"] {
+                padding: 10px 15px;
+                margin-bottom: 10px;
+                font-size: 16px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+
+            }
+            button {
+                padding: 10px 15px;
+                margin-left: 10px;
+                margin-bottom: 10px;
+                font-size: 16px;
+                cursor: pointer;
+                border: none;
+                border-radius: 4px;
+                background-color: #007BFF;
+                color: white;
+            }
+            button:hover {
+                background-color: #0056b3;
+            }
+            #userRestInputField {
+                display: block;
+            }
+            #response {
+                margin-top: 20px;
+                border: 1px solid #ccc;
+                padding: 10px;
+                background-color: #f9f9f9;
+            }
+        </style>
+        <script src="/js/main.js" type="module"></script>
+    </head>
+    <body>
+        <h1>Home Page : RESTful APIs.</h1>
+        <p>Example webserver serving RESTful API, implemented in Python.</br>
+           This website itself is created in basic HTML5 and JavaScript.
+        </p>
+
+        <h2>REST Request Type</h2>
+        <form id="restMethodForm">
+            <label>
+                <input type="radio" name="restMethodOptions" value="getRestMethod_All" checked="true" required>
+                GET_ALL
+            </label>
+
+            <label>
+                <input type="radio" name="restMethodOptions" value="getRestMethod" required>
+                GET
+            </label>
+
+            <label>
+                <input type="radio" name="restMethodOptions" value="postRestMethod" required>
+                POST
+            </label>
+            <p id="validOptions"></p>
+
+            <div id="userRestInputField" class="input-container">
+                <label for="restTextInput">Specify argument: </label>
+                <input type="text" id="restTextInput" name="restTextInput">
+                <!--  placeholder="payload" disabled="true" -->
+            </div>
+
+            <button type="submit" style="margin-left: 0px;">Submit</button>
+            
+        </form>
+
+        <p id="result"></p>
+
+        <br><br>
+        <input type="text" id="testInputField" name="testInputField" placeholder="Input field for Test button">
+        <button id="testButton" name="testButton">Text Button for learning.</button>
+
+        <br><br>
+        <a href="/about">Go to About Page</a>
+        <a href="/contact">Go to contact Page</a>
+    </body>
+</html>
