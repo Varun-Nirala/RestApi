@@ -1,0 +1,6 @@
+SERVER_IP = "127.0.0.1"
+SERVER_PORT = 8001
+BASE_URL = SERVER_IP + ':' + str(SERVER_PORT)   # => 127.0.0.1:8001 or http://localhost:8001/
+
+HTTP_SUCCESS = 200
+HTTP_NOT_FOUND = 404
